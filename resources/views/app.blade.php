@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         html {
-            background-color: #fff;
-            color: #000;
+            background-color: var(--color-background);
+            color: var(--color-foreground);
             overflow-x: hidden;
         }
     </style>
