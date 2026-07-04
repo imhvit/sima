@@ -11,12 +11,18 @@
             color: var(--color-foreground);
             overflow-x: hidden;
         }
+
+        html.dark {
+            background-color: var(--color-background);
+            color: var(--color-foreground);
+            overflow-x: hidden;
+        }
     </style>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
 
     <x-inertia::head>
         <title>{{ config('app.name', 'Sima') }}</title>
