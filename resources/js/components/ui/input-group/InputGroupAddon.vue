@@ -1,20 +1,24 @@
-<script setup>
-import { cn } from "@/lib/utils";
-import { inputGroupAddonVariants } from ".";
+<script setup lang="ts">
+import type { HTMLAttributes } from "vue"
+import type { InputGroupVariants } from "."
+import { cn } from "@/lib/utils"
+import { inputGroupAddonVariants } from "."
 
-const props = defineProps({
-  align: { type: null, required: false, default: "inline-start" },
-  class: { type: null, required: false },
-});
+const props = withDefaults(defineProps<{
+  align?: InputGroupVariants["align"]
+  class?: HTMLAttributes["class"]
+}>(), {
+  align: "inline-start",
+})
 
-function handleInputGroupAddonClick(e) {
-  const currentTarget = e.currentTarget;
-  const target = e.target;
+function handleInputGroupAddonClick(e: MouseEvent) {
+  const currentTarget = e.currentTarget as HTMLElement | null
+  const target = e.target as HTMLElement | null
   if (target && target.closest("button")) {
-    return;
+    return
   }
   if (currentTarget && currentTarget?.parentElement) {
-    currentTarget.parentElement?.querySelector("input")?.focus();
+    currentTarget.parentElement?.querySelector("input")?.focus()
   }
 }
 </script>
