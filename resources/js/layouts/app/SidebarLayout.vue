@@ -9,6 +9,8 @@ import {
 import { usePage } from '@inertiajs/vue3';
 
 const page = usePage();
+
+defineProps<{ module: string }>();
 </script>
 
 <template>
@@ -24,7 +26,9 @@ const page = usePage();
                         orientation="vertical"
                         class="mr-2 data-[orientation=vertical]:h-4"
                     />
-                    <h1 class="text-sm font-medium">Panel de control</h1>
+                    <h1 class="text-sm font-medium">
+                        {{ module }}
+                    </h1>
                 </div>
             </header>
             <main class="w-full">

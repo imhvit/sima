@@ -22,13 +22,12 @@ const formatCurrency = (value: string) => {
     return new Intl.NumberFormat('es-PE', {
         style: 'currency',
         currency: 'PEN',
-        maximumFractionDigits: 2,
     }).format(Number(value));
 };
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout module="Panel de control">
         <Section class="mb-4 flex justify-end">
             <div class="flex items-center gap-x-2">
                 <Button variant="secondary">
