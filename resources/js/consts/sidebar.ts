@@ -16,13 +16,13 @@ export const NAV_MAIN = [
     },
     {
         title: 'Catálogo',
-        url: '#',
+        url: '/app/catalog',
         icon: Package,
         isActive: true,
         items: [
             {
                 title: 'Productos',
-                url: '#',
+                url: '/app/catalog/products',
             },
             {
                 title: 'Categorías',
