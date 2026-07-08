@@ -1,19 +1,10 @@
 <script setup lang="ts" generic="TData, TValue">
-import { ref } from 'vue';
-import type {
-    ColumnDef,
-    ColumnFiltersState,
-    SortingState,
-    VisibilityState,
-} from '@tanstack/vue-table';
-import {
-    FlexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useVueTable,
-} from '@tanstack/vue-table';
+import { ref, watch, onBeforeUnmount } from 'vue';
+import debounce from 'lodash/debounce';
+import { router } from '@inertiajs/vue3';
+
+import type { ColumnDef, VisibilityState } from '@tanstack/vue-table';
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
 
 import {
     Table,
@@ -40,28 +31,25 @@ import {
     SelectValue,
 } from '../ui/select';
 import { ChevronDown } from '@lucide/vue';
+import { route } from 'ziggy-js';
+import { Pagination } from '@/types';
 
 const props = withDefaults(
     defineProps<{
         columns: ColumnDef<TData, TValue>[];
         data: TData[];
-        searchKey?: string;
+        pagination: Pagination;
         searchPlaceholder?: string;
         columnLabels?: Record<string, string>;
-        pageSize?: number;
+        initialSearch?: string;
     }>(),
     {
-        searchKey: 'name',
         searchPlaceholder: 'Filtrar registros...',
-        pageSize: 20,
         columnLabels: () => ({}),
     },
 );
 
-const sorting = ref<SortingState>([]);
-const columnFilters = ref<ColumnFiltersState>([]);
 const columnVisibility = ref<VisibilityState>({});
-const rowSelection = ref({});
 
 const table = useVueTable({
     get data() {
@@ -70,37 +58,52 @@ const table = useVueTable({
     get columns() {
         return props.columns;
     },
+    getRowId: (row: any) => row.id.toString(),
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    initialState: {
-        pagination: {
-            pageSize: props.pageSize,
-        },
-    },
     state: {
-        get sorting() {
-            return sorting.value;
-        },
-        get columnFilters() {
-            return columnFilters.value;
-        },
         get columnVisibility() {
             return columnVisibility.value;
         },
-        get rowSelection() {
-            return rowSelection.value;
-        },
     },
-    onSortingChange: (updaterOrValue) => valueUpdater(updaterOrValue, sorting),
-    onColumnFiltersChange: (updaterOrValue) =>
-        valueUpdater(updaterOrValue, columnFilters),
     onColumnVisibilityChange: (updaterOrValue) =>
         valueUpdater(updaterOrValue, columnVisibility),
-    onRowSelectionChange: (updaterOrValue) =>
-        valueUpdater(updaterOrValue, rowSelection),
 });
+
+const searchQuery = ref(props.initialSearch ?? '');
+
+function goTo(params: Record<string, any>) {
+    const currentRoute = route().current();
+    if (!currentRoute) return;
+
+    router.get(
+        route(currentRoute),
+        {
+            per_page: props.pagination.per_page,
+            search: searchQuery.value,
+            ...params,
+        },
+        { preserveState: true, preserveScroll: true, replace: true },
+    );
+}
+
+const debouncedSearch = debounce((newValue: string) => {
+    goTo({ search: newValue, page: 1 });
+}, 300);
+
+watch(searchQuery, debouncedSearch);
+
+onBeforeUnmount(() => {
+    debouncedSearch.cancel();
+});
+
+function goToPage(url: string | null) {
+    if (!url) return;
+    router.get(url, {}, { preserveState: true, preserveScroll: true });
+}
+
+function handlePageSizeChange(size: string) {
+    goTo({ per_page: Number(size), page: 1 });
+}
 </script>
 
 <template>
@@ -108,13 +111,8 @@ const table = useVueTable({
         <div class="flex items-center">
             <Input
                 class="max-w-sm"
+                v-model="searchQuery"
                 :placeholder="searchPlaceholder"
-                :model-value="
-                    table.getColumn(searchKey)?.getFilterValue() as string
-                "
-                @update:model-value="
-                    table.getColumn(searchKey)?.setFilterValue($event)
-                "
             />
 
             <DropdownMenu>
@@ -145,78 +143,88 @@ const table = useVueTable({
             </DropdownMenu>
         </div>
 
-        <div class="rounded-md border">
-            <Table>
-                <TableHeader>
-                    <TableRow
-                        v-for="headerGroup in table.getHeaderGroups()"
-                        :key="headerGroup.id"
+        <div class="flex max-h-[calc(100vh-200px)] w-full flex-col">
+            <div
+                class="flex flex-2/3 flex-col overflow-hidden rounded-md border"
+            >
+                <Table>
+                    <TableHeader
+                        class="sticky top-0 z-10 bg-background shadow-md shadow-primary/5"
                     >
-                        <TableHead
-                            v-for="header in headerGroup.headers"
-                            :key="header.id"
-                        >
-                            <FlexRender
-                                v-if="!header.isPlaceholder"
-                                :render="header.column.columnDef.header"
-                                :props="header.getContext()"
-                            />
-                        </TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    <template v-if="table.getRowModel().rows?.length">
                         <TableRow
-                            v-for="row in table.getRowModel().rows"
-                            :key="row.id"
-                            :data-state="
-                                row.getIsSelected() ? 'selected' : undefined
-                            "
+                            v-for="headerGroup in table.getHeaderGroups()"
+                            :key="headerGroup.id"
                         >
-                            <TableCell
-                                v-for="cell in row.getVisibleCells()"
-                                :key="cell.id"
+                            <TableHead
+                                v-for="header in headerGroup.headers"
+                                :key="header.id"
                             >
                                 <FlexRender
-                                    :render="cell.column.columnDef.cell"
-                                    :props="cell.getContext()"
+                                    v-if="!header.isPlaceholder"
+                                    :render="header.column.columnDef.header"
+                                    :props="header.getContext()"
                                 />
-                            </TableCell>
+                            </TableHead>
                         </TableRow>
-                    </template>
-                    <template v-else>
-                        <TableRow>
-                            <TableCell
-                                :colspan="columns.length"
-                                class="h-24 text-center"
+                    </TableHeader>
+                    <TableBody>
+                        <template v-if="table.getRowModel().rows?.length">
+                            <TableRow
+                                v-for="row in table.getRowModel().rows"
+                                :key="row.id"
+                                :data-state="
+                                    row.getIsSelected() ? 'selected' : undefined
+                                "
                             >
-                                Sin resultados.
-                            </TableCell>
-                        </TableRow>
-                    </template>
-                </TableBody>
-            </Table>
+                                <TableCell
+                                    v-for="cell in row.getVisibleCells()"
+                                    :key="cell.id"
+                                >
+                                    <FlexRender
+                                        :render="cell.column.columnDef.cell"
+                                        :props="cell.getContext()"
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        </template>
+                        <template v-else>
+                            <TableRow>
+                                <TableCell
+                                    :colspan="
+                                        table
+                                            .getAllColumns()
+                                            .filter((column) =>
+                                                column.getIsVisible(),
+                                            ).length
+                                    "
+                                    class="h-24 text-center"
+                                >
+                                    Sin resultados
+                                </TableCell>
+                            </TableRow>
+                        </template>
+                    </TableBody>
+                </Table>
+            </div>
         </div>
 
         <div class="flex items-center justify-between px-2 py-4">
             <div class="flex-1 text-sm text-muted-foreground">
-                {{ table.getFilteredSelectedRowModel().rows.length }} de
-                {{ table.getFilteredRowModel().rows.length }} fila(s)
-                seleccionada(s).
+                {{ pagination.total }} registro(s) en total
             </div>
 
             <div class="flex items-center space-x-6 lg:space-x-8">
                 <div class="flex items-center space-x-2">
                     <p class="text-sm font-medium">Filas por página</p>
                     <Select
-                        :model-value="`${table.getState().pagination.pageSize}`"
+                        :model-value="`${pagination.per_page}`"
                         @update:model-value="
-                            (value: any) => table.setPageSize(Number(value))
+                            (value: any) => handlePageSizeChange(value)
                         "
                     >
                         <SelectTrigger class="h-8 w-[70px]">
                             <SelectValue
-                                :placeholder="`${table.getState().pagination.pageSize}`"
+                                :placeholder="`${pagination.per_page}`"
                             />
                         </SelectTrigger>
                         <SelectContent side="top">
@@ -236,22 +244,22 @@ const table = useVueTable({
                         class="flex items-center justify-center text-sm font-medium"
                     >
                         Página
-                        {{ table.getState().pagination.pageIndex + 1 }} de
-                        {{ table.getPageCount() }}
+                        {{ pagination.current_page }} de
+                        {{ pagination.last_page }}
                     </div>
                     <div class="flex items-center space-x-2">
                         <Button
                             variant="outline"
-                            :disabled="!table.getCanPreviousPage()"
-                            @click="table.previousPage()"
+                            :disabled="!pagination.prev_page_url"
+                            @click="goToPage(pagination.prev_page_url)"
                         >
                             <span class="sr-only">Ir a la página anterior</span>
                             Anterior
                         </Button>
                         <Button
                             variant="outline"
-                            :disabled="!table.getCanNextPage()"
-                            @click="table.nextPage()"
+                            :disabled="!pagination.next_page_url"
+                            @click="goToPage(pagination.next_page_url)"
                         >
                             <span class="sr-only"
                                 >Ir a la página siguiente</span

@@ -26,7 +26,7 @@ export const NAV_MAIN = [
             },
             {
                 title: 'Categorías',
-                url: '#',
+                url: '/app/catalog/categories',
             },
         ],
     },
