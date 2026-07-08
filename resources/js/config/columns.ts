@@ -1,16 +1,22 @@
 import { ColumnDef } from '@tanstack/vue-table';
 import { h, type Component } from 'vue';
 import type { CategoryTable, ProductTable } from '@/types';
-import DataTableRowActions from './DataTableRowActions.vue';
-import { categoryActions, productActions } from './actions';
-import { Checkbox } from '../ui/checkbox';
+import DataTableRowActions from '@/components/data-table/DataTableRowActions.vue';
+import {
+    categoryActions,
+    productActions,
+    type ProductTableHandlers,
+} from './actions';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const currencyFormatter = new Intl.NumberFormat('es-PE', {
     style: 'currency',
     currency: 'PEN',
 });
 
-export const productColumns: ColumnDef<ProductTable>[] = [
+export const productColumns = (
+    handlers: ProductTableHandlers,
+): ColumnDef<ProductTable>[] => [
     {
         id: 'select',
         header: ({ table }) =>
@@ -71,7 +77,7 @@ export const productColumns: ColumnDef<ProductTable>[] = [
         cell: ({ row }) => {
             return h(DataTableRowActions as Component, {
                 row: row.original,
-                actions: productActions,
+                actions: productActions(handlers),
                 title: `Acciones`,
             });
         },

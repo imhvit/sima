@@ -1,7 +1,14 @@
-import type { ActionDef } from './DataTableRowActions.vue';
+import type { ActionDef } from '@/components/data-table/DataTableRowActions.vue';
 import type { CategoryTable, ProductTable } from '@/types';
 
-export const productActions: ActionDef<ProductTable>[] = [
+export interface ProductTableHandlers {
+    onOpenSheet: (product: ProductTable) => void;
+    onDelete: (product: ProductTable) => void;
+}
+
+export const productActions = (
+    handlers: ProductTableHandlers,
+): ActionDef<ProductTable>[] => [
     {
         label: 'Copiar ID del producto',
         action: (row) => navigator.clipboard.writeText(row.id.toString()),
@@ -9,12 +16,12 @@ export const productActions: ActionDef<ProductTable>[] = [
     { separator: true },
     {
         label: 'Ver detalles',
-        action: (row) => console.log('Navegando a detalles de', row.sku),
+        action: (row) => handlers.onOpenSheet(row),
     },
     {
         label: 'Desactivar',
         destructive: true,
-        action: (row) => console.warn('Desactivando producto', row.id),
+        action: (row) => handlers.onDelete(row),
     },
 ];
 export const categoryActions: ActionDef<CategoryTable>[] = [

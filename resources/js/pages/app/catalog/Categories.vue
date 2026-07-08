@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { categoryColumns } from '@/components/data-table/columns';
+import { categoryColumns } from '@/config/columns';
 import DataTable from '@/components/data-table/DataTable.vue';
 import { categoryColumnLabels } from '@/components/data-table/labels';
 import Section from '@/components/Section.vue';

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,10 @@ Route::middleware('auth')->prefix('/app')->group(function () {
         Route::get('/', function () {
             return redirect()->route('app.catalog.products');
         });
+        // products
         Route::get('/products', [CatalogController::class, 'products'])->name('app.catalog.products');
+        Route::get('/products/{product}', [ProductController::class, 'show'])->name('app.catalog.products.show');
+        // categories
         Route::get('/categories', [CatalogController::class, 'categories'])->name('app.catalog.categories');
     });
 });
