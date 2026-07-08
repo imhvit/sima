@@ -28,6 +28,7 @@ Route::middleware('auth')->prefix('/app')->group(function () {
             return redirect()->route('app.catalog.products');
         });
         Route::get('/products', [CatalogController::class, 'products'])->name('app.catalog.products');
+        Route::get('/categories', [CatalogController::class, 'categories'])->name('app.catalog.categories');
     });
 });
 

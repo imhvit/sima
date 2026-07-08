@@ -8,6 +8,7 @@
         "module": "ESNext",
         "moduleResolution": "bundler",
         "paths": {
+            "ziggy-js": ["./vendor/tightenco/ziggy"],
             "@/*": ["./resources/js/*"]
         },
         "types": ["vite/client"],

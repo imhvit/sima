@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { productColumns } from '@/components/data-table/columns';
-import { productColumnLabels } from '@/components/data-table/labels';
+import { categoryColumns } from '@/components/data-table/columns';
 import DataTable from '@/components/data-table/DataTable.vue';
+import { categoryColumnLabels } from '@/components/data-table/labels';
 import Section from '@/components/Section.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { Pagination, ProductTable } from '@/types';
+import { CategoryTable, Pagination } from '@/types';
 
 const props = defineProps<{
-    products: ProductTable[];
+    categories: CategoryTable[];
     pagination: Pagination;
     initialSearch?: string;
 }>();
 </script>
 
 <template>
-    <AppLayout module="Productos">
+    <AppLayout module="Categorías">
         <Section>
             <DataTable
-                :columns="productColumns"
+                :columns="categoryColumns"
                 :pagination="pagination"
-                :data="products"
-                :column-labels="productColumnLabels"
+                :data="categories"
+                :column-labels="categoryColumnLabels"
                 search-placeholder="Buscar por nombre..."
                 :initial-search="initialSearch"
             />

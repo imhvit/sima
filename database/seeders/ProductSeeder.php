@@ -24,48 +24,27 @@ class ProductSeeder extends Seeder
             return;
         }
 
-        $lastCategoryId = $categoryIds[count($categoryIds) - 1];
-        $lastBrandId = $brandIds[count($brandIds) - 1];
-        $lastUnitId = $unitIds[count($unitIds) - 1];
+        $products = [];
 
-        $products = [
-            [
-                'category_id' => $categoryIds[0],
-                'brand_id' => $brandIds[0],
-                'unit_id' => $unitIds[0],
-                'sku' => 'PRD-0001',
-                'name' => 'Producto de ejemplo 1',
-                'description' => 'Descripción del producto de ejemplo 1',
-                'sale_price' => 25.00,
-                'minimum_stock' => 5,
+        for ($i = 1; $i <= 50; $i++) {
+            $skuNumber = str_pad($i, 4, '0', STR_PAD_LEFT);
+            $categoryId = $categoryIds[$i % count($categoryIds)];
+            $brandId = $brandIds[$i % count($brandIds)];
+            $unitId = $unitIds[$i % count($unitIds)];
+
+            $products[] = [
+                'category_id' => $categoryId,
+                'brand_id' => $brandId,
+                'unit_id' => $unitId,
+                'sku' => 'PRD-' . $skuNumber,
+                'name' => 'Producto de ejemplo ' . $i,
+                'description' => 'Descripción del producto de ejemplo ' . $i,
+                'sale_price' => round(rand(1000, 9999) / 100, 2),
+                'minimum_stock' => rand(5, 20),
                 'image' => null,
                 'is_active' => true,
-            ],
-            [
-                'category_id' => $lastCategoryId,
-                'brand_id' => $lastBrandId,
-                'unit_id' => $lastUnitId,
-                'sku' => 'PRD-0002',
-                'name' => 'Producto de ejemplo 2',
-                'description' => 'Descripción del producto de ejemplo 2',
-                'sale_price' => 49.90,
-                'minimum_stock' => 10,
-                'image' => null,
-                'is_active' => true,
-            ],
-            [
-                'category_id' => $categoryIds[0],
-                'brand_id' => $lastBrandId,
-                'unit_id' => $unitIds[0],
-                'sku' => 'PRD-0003',
-                'name' => 'Producto de ejemplo 3',
-                'description' => 'Descripción del producto de ejemplo 3',
-                'sale_price' => 15.75,
-                'minimum_stock' => 8,
-                'image' => null,
-                'is_active' => true,
-            ],
-        ];
+            ];
+        }
 
         foreach ($products as $product) {
             Product::updateOrCreate(

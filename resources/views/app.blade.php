@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
-
+    @routes
     <x-inertia::head>
         <title>{{ config('app.name', 'Sima') }}</title>
     </x-inertia::head>
