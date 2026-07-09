@@ -13,7 +13,7 @@ class CatalogController extends Controller
         $perPage = max(1, min((int) $request->input('per_page', 20), 100));
         $paginator = Product::query()
             ->when($request->search, fn($q, $search) => $q->where(
-                fn($q) => $q->where('name', 'like', "%{$search}%")
+                fn($q) => $q->where('name', 'like', "{$search}%")
                     ->orWhere('sku', 'like', "{$search}%")
             ))
             ->select('id', 'sku', 'name', 'sale_price', 'minimum_stock', 'is_active')
@@ -41,7 +41,7 @@ class CatalogController extends Controller
             ->when($request->search, fn($q, $search) => $q->where(
                 'name',
                 'like',
-                "%{$search}%"
+                "{$search}%"
             ))
             ->select('id', 'name', 'description', 'is_active')
             ->paginate($perPage)
