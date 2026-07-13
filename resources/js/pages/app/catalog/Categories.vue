@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { categoryColumns } from '@/config/columns';
+import { categoryColumns } from '@/config/category';
 import DataTable from '@/components/data-table/DataTable.vue';
 import { categoryColumnLabels } from '@/components/data-table/labels';
 import Section from '@/components/Section.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { CategoryTable, Pagination } from '@/types';
+import type { CategoryTable, Pagination } from '@/types';
 
 const props = defineProps<{
     categories: CategoryTable[];

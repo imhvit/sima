@@ -23,13 +23,12 @@ return new class extends Migration
             $table->decimal('sale_price', 12, 2)->default(0);
             $table->integer('minimum_stock')->default(0);
             $table->string('image')->nullable();
-            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
             $table->softDeletes();
 
             $table->index('deleted_at');
-            $table->index(['category_id', 'is_active'], 'idx_products_category_active');
+            $table->index(['category_id', 'deleted_at']);
         });
     }
 

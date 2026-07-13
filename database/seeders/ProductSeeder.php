@@ -42,7 +42,6 @@ class ProductSeeder extends Seeder
                 'sale_price' => round(rand(1000, 9999) / 100, 2),
                 'minimum_stock' => rand(5, 20),
                 'image' => null,
-                'is_active' => true,
             ];
         }
 

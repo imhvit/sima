@@ -19,7 +19,6 @@ class Product extends Model
         'sale_price',
         'minimum_stock',
         'image',
-        'is_active',
     ];
 
     public function category()

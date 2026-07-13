@@ -11,7 +11,7 @@ import {
     SheetHeader,
     SheetTitle,
 } from '@/components/ui/sheet';
-import { DetailField } from '@/types';
+import type { DetailField } from '@/types';
 import Spinner from '../ui/spinner/Spinner.vue';
 
 const props = defineProps<{

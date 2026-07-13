@@ -32,7 +32,7 @@ import {
 } from '../ui/select';
 import { ChevronDown } from '@lucide/vue';
 import { route } from 'ziggy-js';
-import { Pagination } from '@/types';
+import type { Pagination } from '@/types';
 
 const props = withDefaults(
     defineProps<{
