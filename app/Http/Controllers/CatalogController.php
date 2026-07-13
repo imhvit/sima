@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Unit;
 use App\Repositories\ProductRepository;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
@@ -17,9 +20,17 @@ class CatalogController extends Controller
     {
         $perPage = $this->getPerPage($request);
         $paginator = $this->productRepo->getDataTable((string) $request->input('search'), $perPage);
+        $categories = Category::select('id as value', 'name as label')->get();
+        $brands = Brand::select('id as value', 'name as label')->get();
+        $units = Unit::select('id as value', 'name as label')->get();
 
         return inertia('app/catalog/Products', [
             'products' => $paginator->items(),
+            'selects' => [
+                'categories' => $categories,
+                'brands' => $brands,
+                'units' => $units,
+            ],
             'pagination' => [
                 'current_page' => $paginator->currentPage(),
                 'last_page' => $paginator->lastPage(),

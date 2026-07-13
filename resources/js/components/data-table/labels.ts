@@ -4,7 +4,6 @@ export const productColumnLabels: Record<string, string> = {
     name: 'Nombre',
     sale_price: 'Precio de Venta',
     minimum_stock: 'Stock Mínimo',
-    is_active: 'Activo',
 };
 
 export const categoryColumnLabels: Record<string, string> = {

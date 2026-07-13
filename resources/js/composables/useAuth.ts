@@ -1,4 +1,4 @@
-import { Auth } from '@/types';
+import type { Auth } from '@/types';
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 

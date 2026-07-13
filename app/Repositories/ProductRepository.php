@@ -15,7 +15,7 @@ class ProductRepository
                         ->orWhere('sku', 'like', "{$search}%");
                 });
             })
-            ->select('id', 'sku', 'name', 'sale_price', 'minimum_stock', 'is_active')
+            ->select('id', 'sku', 'name', 'sale_price', 'minimum_stock')
             ->paginate($perPage)
             ->withQueryString();
     }
