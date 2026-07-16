@@ -1,19 +1,31 @@
 import type { ActionDef } from '@/components/data-table/DataTableRowActions.vue';
 import type { CategoryTable } from '@/types';
 
-export const categoryActions: ActionDef<CategoryTable>[] = [
+export interface CategoryTableHandlers {
+    onOpenSheet: (category: CategoryTable) => void;
+    onOpenForm: (type: 'edit' | 'create', category: CategoryTable) => void;
+    onDelete: (category: CategoryTable) => void;
+}
+
+export const categoryActions = (
+    handlers: CategoryTableHandlers,
+): ActionDef<CategoryTable>[] => [
     {
-        label: 'Copiar ID de la categoría',
+        label: 'Copiar ID',
         action: (row) => navigator.clipboard.writeText(row.id.toString()),
     },
     { separator: true },
     {
         label: 'Ver detalles',
-        action: (row) => console.log('Navegando a detalles de', row.name),
+        action: (row) => handlers.onOpenSheet(row),
     },
     {
-        label: 'Desactivar',
+        label: 'Editar',
+        action: (row) => handlers.onOpenForm('edit', row),
+    },
+    {
+        label: 'Eliminar',
         destructive: true,
-        action: (row) => console.warn('Desactivando producto', row.id),
+        action: (row) => handlers.onDelete(row),
     },
 ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,11 @@ Route::middleware('auth')->prefix('/app')->group(function () {
         Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('app.catalog.products.delete');
         // categories
         Route::get('/categories', [CatalogController::class, 'categories'])->name('app.catalog.categories');
+        Route::get('/categories/{category}/show', [CategoryController::class, 'show'])->name('app.catalog.categories.show');
+        Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('app.catalog.categories.edit');
+        Route::post('/categories', [CategoryController::class, 'store'])->name('app.catalog.categories.store');
+        Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('app.catalog.categories.update');
+        Route::delete('/categories/{category}', [CategoryController::class, 'delete'])->name('app.catalog.categories.delete');
     });
 });
 

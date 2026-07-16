@@ -12,7 +12,7 @@ class CategoryRepository
             ->when($search, function ($query) use ($search) {
                 $query->where('name', 'like', "{$search}%");
             })
-            ->select('id', 'name', 'description', 'is_active')
+            ->select('id', 'name', 'description')
             ->paginate($perPage)
             ->withQueryString();
     }

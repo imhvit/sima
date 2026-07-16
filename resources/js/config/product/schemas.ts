@@ -6,6 +6,11 @@ import type {
     SelectOption,
 } from '@/types';
 
+function dateFormatter(value: string | null): string {
+    if (!value) return 'N/A';
+    return new Date(value).toLocaleDateString('es-PE', { dateStyle: 'full' });
+}
+
 export const productFormSchema = (options: {
     categories: SelectOption[];
     brands: SelectOption[];
@@ -103,19 +108,16 @@ export const productDetailFields: DetailField<ProductWithRelations>[] = [
     {
         key: 'created_at',
         label: 'Fecha de Registro',
-        formatter: (val) =>
-            new Date(val).toLocaleDateString('es-PE', { dateStyle: 'full' }),
+        formatter: dateFormatter,
     },
     {
         key: 'updated_at',
         label: 'Fecha de Actualización',
-        formatter: (val) =>
-            new Date(val).toLocaleDateString('es-PE', { dateStyle: 'full' }),
+        formatter: dateFormatter,
     },
     {
         key: 'deleted_at',
         label: 'Fecha de Eliminación',
-        formatter: (val) =>
-            new Date(val).toLocaleDateString('es-PE', { dateStyle: 'full' }),
+        formatter: dateFormatter,
     },
 ];

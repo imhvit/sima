@@ -134,9 +134,8 @@ function submitForm() {
 
 const columns = computed(() =>
     productColumns({
-        onOpenSheet: (product: ProductTable) => handleOpenSheet(product),
-        onOpenForm: (type, product: ProductTable) =>
-            handleOpenForm(type, product),
+        onOpenSheet: handleOpenSheet,
+        onOpenForm: handleOpenForm,
         onDelete: (product: ProductTable) => {
             if (confirm(`¿Eliminar producto ${product.sku}?`)) {
                 router.delete(
@@ -156,12 +155,6 @@ const columns = computed(() =>
 <template>
     <AppLayout module="Productos">
         <Section>
-            <div class="absolute top-4 right-4 flex justify-end">
-                <Button @click="handleOpenForm('create')">
-                    Nuevo Producto
-                </Button>
-            </div>
-
             <DataTable
                 :columns="columns"
                 :pagination="pagination"
@@ -169,7 +162,13 @@ const columns = computed(() =>
                 :column-labels="productColumnLabels"
                 search-placeholder="Buscar por nombre..."
                 :initial-search="initialSearch"
-            />
+            >
+                <template #actions>
+                    <Button @click="handleOpenForm('create')">
+                        Nuevo Producto
+                    </Button>
+                </template>
+            </DataTable>
         </Section>
 
         <SheetForm
