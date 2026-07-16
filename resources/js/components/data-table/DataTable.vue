@@ -49,6 +49,10 @@ const props = withDefaults(
     },
 );
 
+defineSlots<{
+    actions?: () => any;
+}>();
+
 const columnVisibility = ref<VisibilityState>({});
 
 const table = useVueTable({
@@ -108,39 +112,41 @@ function handlePageSizeChange(size: string) {
 
 <template>
     <div class="space-y-4">
-        <div class="flex items-center">
+        <div class="flex flex-wrap items-center gap-3">
             <Input
                 class="max-w-sm"
                 v-model="searchQuery"
                 :placeholder="searchPlaceholder"
             />
-
-            <DropdownMenu>
-                <DropdownMenuTrigger as-child>
-                    <Button variant="outline" class="ml-auto">
-                        Columnas
-                        <ChevronDown class="ml-2 h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuCheckboxItem
-                        v-for="column in table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())"
-                        :key="column.id"
-                        class="capitalize"
-                        :model-value="column.getIsVisible()"
-                        @update:model-value="
-                            (value) => column.toggleVisibility(!!value)
-                        "
-                    >
-                        {{
-                            columnLabels[column.id] ??
-                            column.id.replace(/_/g, ' ')
-                        }}
-                    </DropdownMenuCheckboxItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <div class="ml-auto flex items-center gap-2">
+                <slot name="actions" />
+                <DropdownMenu>
+                    <DropdownMenuTrigger as-child>
+                        <Button variant="outline">
+                            Columnas
+                            <ChevronDown class="ml-2 size-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuCheckboxItem
+                            v-for="column in table
+                                .getAllColumns()
+                                .filter((column) => column.getCanHide())"
+                            :key="column.id"
+                            class="capitalize"
+                            :model-value="column.getIsVisible()"
+                            @update:model-value="
+                                (value) => column.toggleVisibility(!!value)
+                            "
+                        >
+                            {{
+                                columnLabels[column.id] ??
+                                column.id.replace(/_/g, ' ')
+                            }}
+                        </DropdownMenuCheckboxItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
         </div>
 
         <div class="flex max-h-[calc(100vh-200px)] w-full flex-col">

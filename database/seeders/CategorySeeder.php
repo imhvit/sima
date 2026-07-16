@@ -17,9 +17,9 @@ class CategorySeeder extends Seeder
             ['name' => 'Electrónica', 'description' => 'Dispositivos electrónicos y gadgets'],
             ['name' => 'Ropa', 'description' => 'Prendas de vestir y artículos de moda'],
             ['name' => 'Hogar y Cocina', 'description' => 'Productos para el hogar y la cocina'],
-            ['name' => 'Libros', 'description' => 'Libros y literatura', 'is_active' => false],
+            ['name' => 'Libros', 'description' => 'Libros y literatura'],
             ['name' => 'Deportes y Aire Libre', 'description' => 'Artículos deportivos y equipos para exteriores'],
-            ['name' => 'Juguetes', 'description' => 'Juguetes y juegos para niños', 'is_active' => false],
+            ['name' => 'Juguetes', 'description' => 'Juguetes y juegos para niños'],
             ['name' => 'Salud y Belleza', 'description' => 'Productos de cuidado personal y belleza'],
             ['name' => 'Tecnología', 'description' => 'Accesorios y dispositivos tecnológicos'],
         ];

@@ -2,13 +2,14 @@ export interface Category {
     id: number;
     name: string;
     description: string;
-    is_active: boolean;
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
 }
 
-export type CategoryTable = Pick<
+export type CategoryTable = Pick<Category, 'id' | 'name' | 'description'>;
+
+export type CategoryForm = Omit<
     Category,
-    'id' | 'name' | 'description' | 'is_active'
+    'id' | 'created_at' | 'updated_at' | 'deleted_at'
 >;

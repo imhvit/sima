@@ -10,5 +10,4 @@ export const categoryColumnLabels: Record<string, string> = {
     id: 'ID',
     name: 'Nombre',
     description: 'Descripción',
-    is_active: 'Activo',
 };

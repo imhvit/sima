@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             'sku'           => ['required', 'string', 'max:50', Rule::unique('products', 'sku')],
             'name'          => ['required', 'string', 'max:150'],
-            'description'   => ['nullable', 'string', 'max:1000'],
+            'description'   => ['nullable', 'string', 'max:500'],
             'sale_price'    => ['required', 'numeric', 'min:0'],
             'minimum_stock' => ['required', 'integer', 'min:0'],
 

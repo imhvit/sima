@@ -2,10 +2,12 @@ import { ColumnDef } from '@tanstack/vue-table';
 import { h, type Component } from 'vue';
 import type { CategoryTable } from '@/types';
 import DataTableRowActions from '@/components/data-table/DataTableRowActions.vue';
-import { categoryActions } from './actions';
+import { categoryActions, type CategoryTableHandlers } from './actions';
 import { Checkbox } from '@/components/ui/checkbox';
 
-export const categoryColumns: ColumnDef<CategoryTable>[] = [
+export const categoryColumns = (
+    handlers: CategoryTableHandlers,
+): ColumnDef<CategoryTable>[] => [
     {
         id: 'select',
         header: ({ table }) =>
@@ -39,20 +41,12 @@ export const categoryColumns: ColumnDef<CategoryTable>[] = [
         header: 'Descripción',
     },
     {
-        accessorKey: 'is_active',
-        header: 'Activo',
-        cell: ({ row }) => {
-            const isActive = row.getValue('is_active');
-            return h('div', isActive ? 'Sí' : 'No');
-        },
-    },
-    {
         id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
             return h(DataTableRowActions as Component, {
                 row: row.original,
-                actions: categoryActions,
+                actions: categoryActions(handlers),
                 title: `Acciones`,
             });
         },
