@@ -42,6 +42,7 @@ const props = withDefaults(
         searchPlaceholder?: string;
         columnLabels?: Record<string, string>;
         initialSearch?: string;
+        disableInputSearch?: boolean;
     }>(),
     {
         searchPlaceholder: 'Filtrar registros...',
@@ -114,6 +115,7 @@ function handlePageSizeChange(size: string) {
     <div class="space-y-4">
         <div class="flex flex-wrap items-center gap-3">
             <Input
+                v-if="!disableInputSearch"
                 class="max-w-sm"
                 v-model="searchQuery"
                 :placeholder="searchPlaceholder"

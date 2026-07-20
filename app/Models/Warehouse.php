@@ -14,7 +14,6 @@ class Warehouse extends Model
         'code',
         'address',
         'description',
-        'is_active',
     ];
 
     public function inventories()
