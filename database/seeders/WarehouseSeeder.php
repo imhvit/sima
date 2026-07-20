@@ -18,21 +18,18 @@ class WarehouseSeeder extends Seeder
                 'code' => 'WH-001',
                 'address' => 'Calle Principal 123',
                 'description' => 'Almacén principal para almacenamiento general.',
-                'is_active' => true,
             ],
             [
                 'name' => 'Almacén Norte',
                 'code' => 'WH-002',
                 'address' => 'Avenida Norte 456',
                 'description' => 'Almacén de apoyo para distribución al norte.',
-                'is_active' => true,
             ],
             [
                 'name' => 'Almacén Sur',
                 'code' => 'WH-003',
                 'address' => 'Boulevard Sur 789',
                 'description' => 'Almacén secundario para cobertura regional.',
-                'is_active' => true,
             ],
         ];
 

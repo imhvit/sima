@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('code', 20)->unique();
             $table->string('address', 255);
             $table->text('description')->nullable();
-            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
             $table->softDeletes();

@@ -32,17 +32,17 @@ export const NAV_MAIN = [
     },
     {
         title: 'Inventario',
-        url: '#',
+        url: '/app/inventory',
         icon: Boxes,
         isActive: true,
         items: [
             {
                 title: 'Stock',
-                url: '#',
+                url: '/app/inventory/stock',
             },
             {
                 title: 'Movimientos',
-                url: '#',
+                url: '/app/inventory/movements',
             },
         ],
     },

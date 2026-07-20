@@ -27,10 +27,16 @@ return new class extends Migration
             $table->decimal('quantity', 12, 2);
             $table->decimal('stock_before', 12, 2);
             $table->decimal('stock_after', 12, 2);
-            // $table->string('reference_type', 50)->nullable();
-            // $table->unsignedBigInteger('reference_id', 50)->nullable();
             $table->morphs('reference');
-            $table->string('reason')->nullable();
+            $table->enum('reason', [
+                'purchase_received',
+                'sale',
+                'transfer_dispatch',
+                'transfer_received',
+                'adjustment',
+                'customer_return',
+                'purchase_return',
+            ])->nullable();
             $table->text('notes')->nullable();
 
 

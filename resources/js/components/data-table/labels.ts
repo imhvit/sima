@@ -11,3 +11,16 @@ export const categoryColumnLabels: Record<string, string> = {
     name: 'Nombre',
     description: 'Descripción',
 };
+
+export const inventoryMovementColumnLabels: Record<string, string> = {
+    id: 'ID',
+    warehouse: 'Almacén',
+    product: 'Producto',
+    user: 'Usuario',
+    type: 'Tipo',
+    quantity: 'Cantidad',
+    stock_before: 'Stock Antes',
+    stock_after: 'Stock Después',
+    reason: 'Motivo',
+    notes: 'Notas',
+};

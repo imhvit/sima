@@ -3,6 +3,8 @@
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InventoryMovementController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +44,18 @@ Route::middleware('auth')->prefix('/app')->group(function () {
         Route::post('/categories', [CategoryController::class, 'store'])->name('app.catalog.categories.store');
         Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('app.catalog.categories.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'delete'])->name('app.catalog.categories.delete');
+    });
+    // Inventory
+    Route::prefix('/inventory')->group(function () {
+        Route::get('/', function () {
+            return redirect()->route('app.inventory.stock');
+        });
+
+        // stock
+        Route::get('/stock', [InventoryController::class, 'stock'])->name('app.inventory.stock');
+        // movements
+        Route::get('/movements', [InventoryController::class, 'movements'])->name('app.inventory.movements');
+        Route::get('/movements/{movement}/show', [InventoryMovementController::class, 'show'])->name('app.inventory.movements.show');
     });
 });
 
