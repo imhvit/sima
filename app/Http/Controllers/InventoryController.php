@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InventoryMovement;
 use App\Repositories\InventoryMovementRepository;
+use App\Repositories\InventoryRepository;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
     public function __construct(
+        private readonly InventoryRepository $inventoryRepo,
         private readonly InventoryMovementRepository $inventoryMovementRepo
     ) {}
     public function stock(Request $request)
     {
-        return inertia('app/inventory/Stock');
+        $perPage = $this->getPerPage($request);
+        $paginator = $this->inventoryRepo->getDataTable((string) $request->input('search'), $perPage);
+        return inertia('app/inventory/Stock', [
+            'inventory' => $paginator->items(),
+            'pagination' => [
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+                'per_page' => $paginator->perPage(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'total' => $paginator->total(),
+            ],
+            'initialSearch' => $request->input('search'),
+        ]);
     }
 
     public function movements(Request $request)
