@@ -4,3 +4,4 @@ export * from './brand';
 export * from './movement';
 export * from './unit';
 export * from './warehouse';
+export * from './inventory';

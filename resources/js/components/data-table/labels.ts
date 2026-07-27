@@ -24,3 +24,14 @@ export const inventoryMovementColumnLabels: Record<string, string> = {
     reason: 'Motivo',
     notes: 'Notas',
 };
+
+export const inventoryColumnLabels: Record<string, string> = {
+    id: 'ID',
+    product_name: 'Nombre del Producto',
+    product_sku: 'SKU del Producto',
+    warehouse: 'Almacén',
+    stock: 'Stock',
+    reserved_stock: 'Stock Reservado',
+    available_stock: 'Stock Disponible',
+    product_deleted_at: 'Estado del Producto',
+};

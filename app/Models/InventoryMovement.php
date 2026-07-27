@@ -22,12 +22,12 @@ class InventoryMovement extends Model
 
     public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class);
+        return $this->belongsTo(Warehouse::class)->withTrashed();
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed();
     }
 
     public function user()
