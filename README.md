@@ -1,58 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
+<h1 align="center">
+SIMA
+</h1>
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <strong>Gestión de Almacenes e Inventarios</strong><br>
+  Plataforma para el control, rastreo y auditoría de movimientos de stock.
 </p>
 
-## About Laravel
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/Vue.js-3.5-4FC08D?style=flat-square&logo=vue.js" alt="Vue 3.5">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4.0-06B6D4?style=flat-square&logo=tailwind-css" alt="Tailwind 4">
+  <img src="https://img.shields.io/badge/Inertia.js-3.0-9553E9?style=flat-square&logo=inertia" alt="Inertia 3">
+  <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql" alt="MySQL 8">
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Sobre el proyecto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+SIMA es un sistema web de gestión de almacenes e inventarios diseñado para controlar, rastrear y auditar todos los movimientos de stock dentro de una organización. Permite administrar productos, categorías, niveles de stock y el historial completo de movimientos, garantizando trazabilidad en tiempo real.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Actualmente el proyecto se encuentra en desarrollo, buscando ofrecer una interfaz clara y eficiente para la operación diaria de almacén.
 
-## Learning Laravel
+## Características
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Gestión de productos:** creación, edición y visualización de detalles.
+- **Categorización:** organización de productos por categorías.
+- **Control de stock:** visualización en tiempo real de existencias.
+- **Movimientos de inventario:** trazabilidad de entradas, salidas y ajustes.
+- **DataTables server-driven:** tablas con paginación y búsqueda procesadas desde el backend.
+- **Renderizado SSR:** mejora en tiempos de carga inicial mediante Inertia.js SSR.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Stack Tecnológico
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- **Backend:** Laravel 13 (PHP 8.3+)
+- **Frontend:** Vue.js 3.5 & Inertia.js 3.0 (SSR)
+- **Estilos:** Tailwind CSS 4.0
+- **Base de Datos:** MySQL / MariaDB
+- **Build Tool:** Vite
 
-## Agentic Development
+## Capturas de pantalla
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+**Dashboard**
 
-```bash
-composer require laravel/boost --dev
+<img width="1600" height="829" alt="32c7a4b2-398d-4daa-9ca9-ec7bc249fe72" src="https://github.com/user-attachments/assets/b8dbb6f8-13aa-46f9-9f6f-1be434804c35" />
 
-php artisan boost:install
-```
+**Productos**
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+<img width="1600" height="831" alt="0aa592f9-321a-4bc7-a3b6-76cabc1f9828" src="https://github.com/user-attachments/assets/013b6bb3-867d-4d2e-9022-c30d9bbd74b1" />
 
-## Contributing
+**Categorías**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<img width="1600" height="829" alt="80653c58-a381-4284-8ac5-745391073fef" src="https://github.com/user-attachments/assets/49b11707-8f5d-4b86-9efb-cd70a5597e9e" />
 
-## Code of Conduct
+**Stock**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<img width="1600" height="831" alt="7bf276ca-f321-48f0-be41-e43b962ad074" src="https://github.com/user-attachments/assets/1f72a45a-0f1b-415f-86c4-05aef10a5bf5" />
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Movimientos**
 
-## License
+<img width="1600" height="830" alt="849dff55-00d8-4aa4-89f4-d3bc6f4433f6" src="https://github.com/user-attachments/assets/426eb90a-cdeb-494e-9826-1d9c8c4aebeb" />
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+**Crear producto**
+
+<img width="1600" height="832" alt="58fff255-6383-4357-accd-ae5bc5f52933" src="https://github.com/user-attachments/assets/59acbd17-8f91-428c-af84-164e6dbd4cd7" />
+
+
+**Editar producto**
+
+<img width="1600" height="828" alt="69876ed9-39d0-4580-9578-2ecccd6d8fb9" src="https://github.com/user-attachments/assets/ce22761a-85d1-4f9c-a626-7f31ff3c7056" />
+
+
+**Detalles de producto**
+
+<img width="1600" height="830" alt="9db39a66-a379-48df-a201-d5b5468273b3" src="https://github.com/user-attachments/assets/30d20aa2-f197-4e2b-9da1-efc49196bd60" />
+
+## Instalación
+
+1. **Clonar repositorio:**
+    ```bash
+    git clone https://github.com/imhvit/sima.git
+    cd sima
+    ```
+2. **Instalación:**
+    ```bash
+    composer install
+    npm install
+    cp .env.example .env
+    php artisan key:generate
+    php artisan migrate --seed
+    ```
+3. **Ejecutar en desarrollo:**
+    ```bash
+    composer run dev
+    ```
+    _Este comando inicia simultáneamente `php artisan serve`, el worker de colas y el servidor de Vite._
+
+## Requisitos y Notas
+
+- **Idioma:** La interfaz (UI) está en **Español**. El código y la configuración base utilizan Inglés.
+- **Servidor Web:** Compatible con Apache (recomendado), Nginx o el servidor embebido de Laravel.
+
+## Contribuir
+
+Si deseas contribuir al desarrollo de SIMA:
+
+1. Realiza un **Fork** del repositorio.
+2. Crea una rama para tu mejora con nombres en minúscula (ej: `feature-stock`, `fix-datatable`).
+3. Realiza tus cambios y haz commit con mensajes descriptivos en minúscula (ej: `add: nueva funcionalidad`, `fix: error en tabla`).
+4. Envía un **Pull Request**.
+
+## Licencia
+
+Este software es de código abierto bajo la licencia [MIT](LICENSE).
+
+<p align="center">
+  Desarrollado por <a href="https://github.com/imhvit">imhvit</a>
+</p>
